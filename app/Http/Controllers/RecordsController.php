@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Record;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RecordsController extends Controller
 {
@@ -13,7 +16,8 @@ class RecordsController extends Controller
      */
     public function index()
     {
-        //
+        $records = Record::OwnRecords();
+        return view('record.index',compact('records'));
     }
 
     /**
@@ -23,7 +27,7 @@ class RecordsController extends Controller
      */
     public function create()
     {
-        //
+        return view('record.create');
     }
 
     /**
@@ -34,7 +38,40 @@ class RecordsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->all();
+
+        $record = new Record();
+        $record->fill($params);
+
+        if ( isset($params['oneday_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['oneday_image_path']);
+        }
+
+        if (isset($params['four_hours_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['four_hours_image_path']);
+        }
+
+        if (isset($params['one_hour_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['one_hour_image_path']);
+        }
+
+        if (isset($params['entry_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['entry_image_path']);
+        }
+
+        if (isset($params['finish_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['finish_image_path']);
+        }
+
+        $record->user_id = Auth::id();
+        $record->save();
+
+        return redirect()->route('record.index');
     }
 
     /**
@@ -45,7 +82,15 @@ class RecordsController extends Controller
      */
     public function show($id)
     {
-        //
+        if (Record::is_my_record($id)){
+
+            $record = Record::findOrFail($id);
+
+            return view('record.show' ,compact('record'));
+        } else {
+
+            return abort(404);
+        }
     }
 
     /**
@@ -56,7 +101,15 @@ class RecordsController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Record::is_my_record($id)) {
+
+            $record = Record::findOrFail($id);
+
+            return view('record.edit', compact('record'));
+        } else {
+
+            return abort(404);
+        }
     }
 
     /**
@@ -68,7 +121,13 @@ class RecordsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params = $request->all();
+
+        $record = Record::findOrFail($id);
+        $record->fill($params);
+        $record->save();
+
+        return redirect()->route('record.index');
     }
 
     /**
@@ -79,6 +138,17 @@ class RecordsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $record = Record::findOrFail($id);
+        $record->delete();
+
+        return redirect()->route('record.index');
+    }
+
+    private function _set_image_path($image)
+    {
+        # バケットの`test`フォルダへアップロード
+        $path = Storage::disk('s3')->putFile('test', $image, 'public');
+        # アップロードした画像のフルパスを返す
+        return Storage::disk('s3')->url($path);
     }
 }
