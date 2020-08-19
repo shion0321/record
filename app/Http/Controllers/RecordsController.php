@@ -87,6 +87,7 @@ class RecordsController extends Controller
             $record = Record::findOrFail($id);
 
             return view('record.show' ,compact('record'));
+            
         } else {
 
             return abort(404);
@@ -106,6 +107,7 @@ class RecordsController extends Controller
             $record = Record::findOrFail($id);
 
             return view('record.edit', compact('record'));
+
         } else {
 
             return abort(404);
