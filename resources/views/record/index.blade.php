@@ -2,7 +2,7 @@
 
 @section('content')
 <div>
-    <a href="{{ route('record.create') }}" class="btn">新規作成</a>
+    <a href="{{ route('record.create') }}" class="btn btn-primary">新規作成</a>
 </div>
 
 <div>
