@@ -13,12 +13,18 @@
                 <td>通貨ペア：{{ $record->currency_pair }}</td>
                 <td>更新日：{{ $record->updated_at }}</td>
                 <td>
-                    <a href="{{ route('record.edit',$record) }}">編集</a>
-                    <form action="{{ route('record.destroy',$record) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" id="" value="削除" class="btn">
-                    </form>
+                    <div class="row">
+                        <div>
+                            <a href="{{ route('record.edit',$record) }}">編集</a>
+                        </div>
+                        <div>
+                            <form action="{{ route('record.destroy',$record) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" id="" value="削除" class="btn">
+                            </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
         @endforeach
