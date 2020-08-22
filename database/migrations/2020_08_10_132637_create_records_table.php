@@ -19,7 +19,7 @@ class CreateRecordsTable extends Migration
             # ユーザーID
             $table->unsignedBigInteger('user_id');
             # 通貨ペア
-            $table->integer('currency_pair');
+            $table->string('currency_pair');
             /*
               日足
              */
