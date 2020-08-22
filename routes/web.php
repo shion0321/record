@@ -12,13 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware('auth.basic')->group(function(){
 
-Route::get('/', function () {
-    return redirect()->route('record.index');
+    Route::get('/', function () {
+        return redirect()->route('record.index');
+    });
+
+    Auth::routes();
+
+
+    Route::resource('record','RecordsController')->middleware('auth');
 });
-
-Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('record','RecordsController')->middleware('auth');
