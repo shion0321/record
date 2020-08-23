@@ -4,12 +4,15 @@
 
 <form action="{{ route('record.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class='form-group'>
-        <label for="">
-            通貨ペア
-        </label>
-        <input type="text" name="currency_pair" id="" class="form-control">
+    <div class="form-group">
+        <label for="">通貨ペア</label>
+        <select id="" class="form-control" name="currency_pair">
+            <option value="" selected>未選択</option>
+            <option value="ポンドドル">ポンドドル</option>
+            <option value="ユーロドル">ユーロドル</option>
+        </select>
     </div>
+
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -31,13 +34,19 @@
     <div id="oneday" class="tab-pane active">
         <div>
             <!-- 日足 -->
-            <div class='form-group'>
+            <div class="">
                 <label for="">
                     日足のトレンド方向
                 </label>
-                <input type="text" name="oneday_trend" id="" class="form-control">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="oneday_trend" id="oneday_trend_up" value="上昇トレンド">
+                    <label class="form-check-label" for="oneday_trend_up">上昇トレンド</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="oneday_trend" id="oneday_trend_down" value="下降トレンド">
+                    <label class="form-check-label" for="oneday_trend_down">下降トレンド</label>
+                </div>
             </div>
-            <!--  -->
             <div class='form-group'>
                 <label for="">
                     日足の画像
