@@ -64,6 +64,11 @@ class Record extends Model
         'result_profit',
         # 振り返り
         'review',
+        'entry_time',
+        'loss_cut_time',
+        'entry_basis',
+        'risk',
+        'reward',
     ];
 
     /**
@@ -74,22 +79,21 @@ class Record extends Model
      */
     public function scopeOwnRecords($query)
     {
-        return $query->where('user_id' ,Auth::id())
-                     ->get();
+        return $query->where('user_id', Auth::id())
+            ->get();
     }
 
-    public static function is_my_record($record_id){
+    public static function is_my_record($record_id)
+    {
 
-        $record = self::where('id',$record_id)
-                       ->where('user_id',Auth::id())
-                       ->first();
+        $record = self::where('id', $record_id)
+            ->where('user_id', Auth::id())
+            ->first();
 
         return $record;
     }
 
     public function getCurrencyPairNameAttribute()
     {
-
     }
-
 }
