@@ -26,6 +26,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::component('textarea', TextArea::class);
     }
 }
