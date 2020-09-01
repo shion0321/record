@@ -5,6 +5,10 @@
 <div>
     <table class="table">
         <tr>
+            <th>作成日</th>
+            <td>{{ $record->created_at->format('Y年m月d日') }}</td>
+        </tr>
+        <tr>
             <th>通貨ペア</th>
             <td>{{ $record->currency_pair ??'' }}</td>
         </tr>
@@ -88,6 +92,27 @@
             <th>結果</th>
             <td>{{ $record->result ??''  }}</td>
         </tr>
+        <tr>
+            <th>リスク</th>
+            <td>{{ $record->risk ??''  }}</td>
+        </tr>
+        <tr>
+            <th>リワード</th>
+            <td>{{ $record->reward ??''  }}</td>
+        </tr>
+        <tr>
+            <th>エントリー時間</th>
+            <td>{{ $record->entry_time ??''  }}</td>
+        </tr>
+        <tr>
+            <th>損切時間</th>
+            <td>{{ $record->loss_cut_time ??''  }}</td>
+        </tr>
+        <tr>
+            <th>エントリー根拠</th>
+            <td>{{ $record->entry_basis ??''  }}</td>
+        </tr>
+
         <tr>
             <th>エントリー時画像</th>
             <td><img src="{{ $record->entry_image_path ??'' }}" alt=""></td>
