@@ -71,6 +71,11 @@ class Record extends Model
         'reward',
     ];
 
+    protected $dates = [
+        'loss_cut_time',
+        'entry_time',
+    ];
+
     /**
      * Scope a query to only include
      *
