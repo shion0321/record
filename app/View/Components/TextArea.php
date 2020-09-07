@@ -29,12 +29,13 @@ class TextArea extends Component
      */
     public function render()
     {
-        return view('components.textarea');
+        $record = $this->record;
+        return view('components.textarea',compact('record'));
     }
 
-    public function record()
-    {
-        $record = Record::find($this->record);
-        return compact('record');
-    }
+    // public function record()
+    // {
+    //     $record = Record::find($this->record);
+    //     return compact('record');
+    // }
 }
