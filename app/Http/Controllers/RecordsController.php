@@ -126,6 +126,30 @@ class RecordsController extends Controller
 
         $record = Record::findOrFail($id);
         $record->fill($params);
+        if (isset($params['oneday_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['oneday_image_path']);
+        }
+
+        if (isset($params['four_hours_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['four_hours_image_path']);
+        }
+
+        if (isset($params['one_hour_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['one_hour_image_path']);
+        }
+
+        if (isset($params['entry_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['entry_image_path']);
+        }
+
+        if (isset($params['finish_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['finish_image_path']);
+        }
         $record->save();
 
         return redirect()->route('record.index');
