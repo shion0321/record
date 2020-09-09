@@ -19,10 +19,10 @@
                 <td>更新日：{{ $record->updated_at->format('Y年m月d日 h時i分') }}</td>
                 <td>
                     <div class="row">
-                        <div>
+                        {{-- <div>
                             <a href="{{ route('record.edit',$record) }}" class="btn btn-primary">編集</a>
                         </div>
-                        {{-- <div>
+                        <div>
                             <form action="{{ route('record.destroy',$record) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
