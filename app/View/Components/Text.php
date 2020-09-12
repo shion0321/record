@@ -13,10 +13,12 @@ class Text extends Component
      *
      * @return void
      */
-    public function __construct($name, $label)
+    public function __construct($name, $label, $record=null)
     {
         $this->name = $name;
         $this->label = $label;
+        $this->record = $record;
+
     }
 
     /**
@@ -26,6 +28,8 @@ class Text extends Component
      */
     public function render()
     {
-        return view('components.text');
+        $record = $this->record;
+
+        return view('components.text',compact('record'));
     }
 }
