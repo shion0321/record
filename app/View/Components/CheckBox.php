@@ -16,12 +16,13 @@ class CheckBox extends Component
      *
      * @return void
      */
-    public function __construct($name, $label, $upName = null, $downName = null)
+    public function __construct($name, $label, $upName = null, $downName = null,$record = null)
     {
         $this->upName = $upName;
         $this->downName = $downName;
         $this->label = $label;
         $this->name = $name;
+        $this->record = $record;
     }
 
     /**
@@ -31,6 +32,7 @@ class CheckBox extends Component
      */
     public function render()
     {
-        return view('components.check-box');
+        $record = $this->record;
+        return view('components.check-box',compact('record'));
     }
 }

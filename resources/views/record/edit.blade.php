@@ -6,6 +6,7 @@
 
 
 @section('content')
+{{-- {{ dd($record) }} --}}
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul class="list-unstyled">
@@ -18,6 +19,7 @@
 
 <form action="{{ route('record.update',$record) }}" method="POST" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
     <div class="form-group">
         <label for="">通貨ペア</label>
         <select id="" class="form-control" name="currency_pair">
@@ -47,48 +49,48 @@
   <div class="tab-content">
     <!-- 日足 -->
     <div id="oneday" class="tab-pane active">
-        <x-check-box label="日足のトレンド方向" name="oneday_trend" up-name="上昇トレンド" down-name="下降トレンド"/>
-        <x-image name="oneday_image_path" label="日足の画像"/>
-        <x-textarea name="oneday_flow" label="日足の値動きの流れ" record="{{ $record['id'] }}"/>
-        <x-textarea name="oneday_entry_point" label="日足のエントリーポイント"/>
-        <x-textarea name="oneday_profit_point" label="日足の利確位置"/>
-        <x-textarea name="oneday_caution" label="日足の注意点"/>
+        <x-check-box label="日足のトレンド方向" name="oneday_trend" up-name="上昇トレンド" down-name="下降トレンド" :record="$record['oneday_trend']"/>
+        <x-image name="oneday_image_path" label="日足の画像" :record="$record['oneday_image_path']"/>
+        <x-textarea name="oneday_flow" label="日足の値動きの流れ" :record="$record['oneday_flow']"/>
+        <x-textarea name="oneday_entry_point" label="日足のエントリーポイント" :record="$record['oneday_entry_point']"/>
+        <x-textarea name="oneday_profit_point" label="日足の利確位置" :record="$record['oneday_profit_point']"/>
+        <x-textarea name="oneday_caution" label="日足の注意点" :record="$record['oneday_caution']"/>
     </div>
     <!-- 4時間足 -->
     <div id="four_hours" class="tab-pane">
-        <x-check-box name="four_hours_trend" label="4時間足のトレンド方向" up-name="上昇トレンド" down-name="下降トレンド"/>
+        <x-check-box name="four_hours_trend" label="4時間足のトレンド方向" up-name="上昇トレンド" down-name="下降トレンド" :record="$record['four_hours_trend']"/>
         <x-image name="four_hours_image_path" label="4時間足の画像"/>
-        <x-textarea name="four_hours_flow" label="4時間足の値動きの流れ"/>
-        <x-textarea name="four_hours_entry_point" label="4時間足のエントリーポイント"/>
-        <x-textarea name="four_hours_profit_point" label="4時間足の利確位置"/>
-        <x-textarea name="four_hours_caution" label="4時間足の注意点"/>
+        <x-textarea name="four_hours_flow" label="4時間足の値動きの流れ" :record="$record['four_hours_flow']"/>
+        <x-textarea name="four_hours_entry_point" label="4時間足のエントリーポイント" :record="$record['four_hours_entry_point']"/>
+        <x-textarea name="four_hours_profit_point" label="4時間足の利確位置" :record="$record['four_hours_profit_point']"/>
+        <x-textarea name="four_hours_caution" label="4時間足の注意点" :record="$record['four_hours_caution']"/>
     </div>
     <!-- 1時間足 -->
     <div id="one_hour" class="tab-pane">
-        <x-check-box name="one_hour_trend" label="1時間足のトレンド方向" up-name="上昇トレンド" down-name="下降トレンド"/>
+        <x-check-box name="one_hour_trend" label="1時間足のトレンド方向" up-name="上昇トレンド" down-name="下降トレンド" :record="$record['one_hour_trend']"/>
         <x-image name="one_hour_image_path" label="1時間足の画像" />
-        <x-textarea name="one_hour_flow" label="1時間足の値動きの流れ"/>
-        <x-textarea name="one_hour_entry_point" label="1時間足のエントリーポイント"/>
-        <x-textarea name="one_hour_profit_point" label="1時間足の利確位置"/>
-        <x-textarea name="one_hour_caution" label="1時間足の注意点"/>
+        <x-textarea name="one_hour_flow" label="1時間足の値動きの流れ" :record="$record['one_hour_flow']"/>
+        <x-textarea name="one_hour_entry_point" label="1時間足のエントリーポイント" :record="$record['one_hour_entry_point']"/>
+        <x-textarea name="one_hour_profit_point" label="1時間足の利確位置" :record="$record['one_hour_profit_point']"/>
+        <x-textarea name="one_hour_caution" label="1時間足の注意点" :record="$record['one_hour_caution']"/>
     </div>
     <!-- 結果 -->
     <div id="result" class="tab-pane">
 
-        <x-check-box name="result" label="結果" up-name="利確" down-name="損切"/>
-        <x-text name="risk" label="リスク"/>
-        <x-text name="reward" label="リワード"/>
+        <x-check-box name="result" label="結果" up-name="利確" down-name="損切" :record="$record['result']"/>
+        <x-text name="risk" label="リスク" :record="$record['risk']"/>
+        <x-text name="reward" label="リワード" :record="$record['reward']"/>
         <label for="">エントリー時間</label>
-        <input type="datetime-local" name="entry_time">
+        <input type="datetime-local" name="entry_time" value="{{ $record['entry_time']->format('Y-m-d\TH:i') }}">
         <label for="">損切時間</label>
-        <input type="datetime-local" name="loss_cut_time">
+        <input type="datetime-local" name="loss_cut_time" value="{{ $record['loss_cut_time']->format('Y-m-d\TH:i') }}">
 
-        <x-textarea name="entry_basis" label="エントリー根拠"/>
+        <x-textarea name="entry_basis" label="エントリー根拠" :record="$record['entry_basis']"/>
         <x-image name="entry_image_path" label="エントリ―時画像" />
         <x-image name="finish_image_path" label="決済時画像" />
-        <x-text name="result_pips" label="獲得PIPS"/>
-        <x-text name="result_profit" label="獲得金額"/>
-        <x-textarea name="review" label="振り返り"/>
+        <x-text name="result_pips" label="獲得PIPS" :record="$record['result_pips']"/>
+        <x-text name="result_profit" label="獲得金額" :record="$record['result_profit']"/>
+        <x-textarea name="review" label="振り返り" :record="$record['review']"/>
     </div>
   </div>
 <div><button class="btn btn-primary">登録</button></div>
