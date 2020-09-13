@@ -33,9 +33,5 @@ class TextArea extends Component
         return view('components.textarea',compact('record'));
     }
 
-    // public function record()
-    // {
-    //     $record = Record::find($this->record);
-    //     return compact('record');
-    // }
+
 }

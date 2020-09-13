@@ -8,16 +8,17 @@ class Image extends Component
 {
     public $name;
     public $label;
-    
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $label)
+    public function __construct($name, $label,$record = null)
     {
         $this->name = $name;
         $this->label = $label;
+        $this->record = $record;
     }
 
     /**
@@ -27,6 +28,7 @@ class Image extends Component
      */
     public function render()
     {
-        return view('components.image');
+        $record = $this->record;
+        return view('components.image',['record' => $record]);
     }
 }
