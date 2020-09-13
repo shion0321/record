@@ -23,21 +23,20 @@
 
     </div>
 
-
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a href="#oneday" class="nav-link active" data-toggle="tab">日足</a>
-    </li>
-    <li class="nav-item">
-      <a href="#four_hours" class="nav-link" data-toggle="tab">4時間足</a>
-    </li>
-    <li class="nav-item">
-      <a href="#one_hour" class="nav-link" data-toggle="tab">1時間足</a>
-    </li>
-    <li class="nav-item">
-      <a href="#result" class="nav-link" data-toggle="tab">結果</a>
-    </li>
-  </ul>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+        <a href="#oneday" class="nav-link active" data-toggle="tab">日足</a>
+        </li>
+        <li class="nav-item">
+        <a href="#four_hours" class="nav-link" data-toggle="tab">4時間足</a>
+        </li>
+        <li class="nav-item">
+        <a href="#one_hour" class="nav-link" data-toggle="tab">1時間足</a>
+        </li>
+        <li class="nav-item">
+        <a href="#result" class="nav-link" data-toggle="tab">結果</a>
+        </li>
+    </ul>
 
   <div class="tab-content">
     <!-- 日足 -->
