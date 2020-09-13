@@ -59,7 +59,7 @@
     <!-- 4時間足 -->
     <div id="four_hours" class="tab-pane">
         <x-check-box name="four_hours_trend" label="4時間足のトレンド方向" up-name="上昇トレンド" down-name="下降トレンド" :record="$record['four_hours_trend']"/>
-        <x-image name="four_hours_image_path" label="4時間足の画像"/>
+        <x-image name="four_hours_image_path" label="4時間足の画像" :record="$record['four_hours_image_path']"/>
         <x-textarea name="four_hours_flow" label="4時間足の値動きの流れ" :record="$record['four_hours_flow']"/>
         <x-textarea name="four_hours_entry_point" label="4時間足のエントリーポイント" :record="$record['four_hours_entry_point']"/>
         <x-textarea name="four_hours_profit_point" label="4時間足の利確位置" :record="$record['four_hours_profit_point']"/>
@@ -68,7 +68,7 @@
     <!-- 1時間足 -->
     <div id="one_hour" class="tab-pane">
         <x-check-box name="one_hour_trend" label="1時間足のトレンド方向" up-name="上昇トレンド" down-name="下降トレンド" :record="$record['one_hour_trend']"/>
-        <x-image name="one_hour_image_path" label="1時間足の画像" />
+        <x-image name="one_hour_image_path" label="1時間足の画像" :record="$record['one_hour_image_path']"/>
         <x-textarea name="one_hour_flow" label="1時間足の値動きの流れ" :record="$record['one_hour_flow']"/>
         <x-textarea name="one_hour_entry_point" label="1時間足のエントリーポイント" :record="$record['one_hour_entry_point']"/>
         <x-textarea name="one_hour_profit_point" label="1時間足の利確位置" :record="$record['one_hour_profit_point']"/>
@@ -81,13 +81,13 @@
         <x-text name="risk" label="リスク" :record="$record['risk']"/>
         <x-text name="reward" label="リワード" :record="$record['reward']"/>
         <label for="">エントリー時間</label>
-        <input type="datetime-local" name="entry_time" value="{{ $record['entry_time']->format('Y-m-d\TH:i') }}">
+        <input type="datetime-local" name="entry_time" value="{{ $record['entry_time'] ? $record['entry_time']->format('Y-m-d\TH:i') : '' }}">
         <label for="">損切時間</label>
-        <input type="datetime-local" name="loss_cut_time" value="{{ $record['loss_cut_time']->format('Y-m-d\TH:i') }}">
+        <input type="datetime-local" name="loss_cut_time" value="{{ $record['entry_time'] ? $record['loss_cut_time']->format('Y-m-d\TH:i')  : '' }}">
 
         <x-textarea name="entry_basis" label="エントリー根拠" :record="$record['entry_basis']"/>
-        <x-image name="entry_image_path" label="エントリ―時画像" />
-        <x-image name="finish_image_path" label="決済時画像" />
+        <x-image name="entry_image_path" label="エントリ―時画像" :record="$record['entry_image_path']"/>
+        <x-image name="finish_image_path" label="決済時画像" :record="$record['finish_image_path']"/>
         <x-text name="result_pips" label="獲得PIPS" :record="$record['result_pips']"/>
         <x-text name="result_profit" label="獲得金額" :record="$record['result_profit']"/>
         <x-textarea name="review" label="振り返り" :record="$record['review']"/>
