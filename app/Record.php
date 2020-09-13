@@ -85,6 +85,7 @@ class Record extends Model
     public function scopeOwnRecords($query)
     {
         return $query->where('user_id', Auth::id())
+        ->latest()
             ->get();
     }
 
