@@ -43,7 +43,6 @@ class RecordsController extends Controller
 
         $record = new Record();
         $record->fill($params);
-
         if (isset($params['oneday_image_path'])) {
 
             $record->oneday_image_path = $this->_set_image_path($params['oneday_image_path']);
@@ -127,7 +126,6 @@ class RecordsController extends Controller
         $record = Record::findOrFail($id);
         $record->fill($params);
         if (isset($params['oneday_image_path'])) {
-
             $record->oneday_image_path = $this->_set_image_path($params['oneday_image_path']);
         }
 
