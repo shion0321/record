@@ -85,6 +85,8 @@
         <x-textarea name="review" label="振り返り"/>
     </div>
   </div>
-<div><button class="btn btn-primary">登録</button></div>
+<div class="text-center">
+    <button class="btn btn-info w-25">登録</button>
+</div>
 </form>
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="btn-group float-right mb-3">
-    <a href="{{ route('record.edit',$record) }}" class="btn btn-primary">編集</a>
+    <a href="{{ route('record.edit',$record) }}" class="btn btn-info">編集</a>
     <form action="{{ route('record.destroy',$record) }}" method="POST">
         @csrf
         @method('DELETE')

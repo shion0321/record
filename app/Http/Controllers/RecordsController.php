@@ -10,6 +10,25 @@ use Illuminate\Support\Facades\Storage;
 
 class RecordsController extends Controller
 {
+    public function search(Request $request)
+    {
+        $params = $request->all();
+
+        $records = Record::query();
+        $records->where('user_id',Auth::id());
+        
+        if ( isset($params['currency_pair'])) {
+            $records->whereIn('currency_pair',$params['currency_pair']);
+        }
+
+        if (isset($params['result'])) {
+            $records->whereIn('result', $params['result']);
+        }
+
+        $records = $records->getModels();
+
+        return view('record.index', compact('records'));
+    }
     /**
      * Display a listing of the resource.
      *
