@@ -20,6 +20,6 @@ Route::middleware('auth.basic')->group(function(){
 
     Auth::routes();
 
-
+    Route::get('record/search','RecordsController@search')->name('record.search');
     Route::resource('record','RecordsController')->middleware('auth');
 });
