@@ -93,6 +93,6 @@
         <x-textarea name="review" label="振り返り" :record="$record['review']"/>
     </div>
   </div>
-<div><button class="btn btn-primary">登録</button></div>
+<div><button class="btn btn-info">登録</button></div>
 </form>
 @endsection
