@@ -24,8 +24,9 @@
         <label for="">通貨ペア</label>
         <select id="" class="form-control" name="currency_pair">
             <option value="" selected @if(old('currency_pair')=='') selected  @endif>未選択</option>
-            <option value="ポンドドル" {{ old('currency_pair') =='ポンドドル'? 'selected' : ''}} {{ $record['currency_pair'] =='ポンドドル'? 'selected' : ''}}>ポンドドル</option>
-            <option value="ユーロドル" {{ old('currency_pair') =='ユーロドル'? 'selected' : ''}} {{ $record['currency_pair'] =='ユーロドル'? 'selected' : ''}}>ユーロドル</option>
+            <option value="ユーロドル" {{ old('currency_pair') =='USDJPY'? 'selected' : ''}}>USDJPY</option>
+            <option value="ユーロドル" {{ old('currency_pair') =='EURUSD'? 'selected' : ''}}>EURUSD</option>
+            <option value="ポンドドル" {{ old('currency_pair') =='GBPUSD'? 'selected' : ''}}>GBPUSD</option>
         </select>
 
     </div>
@@ -93,6 +94,9 @@
         <x-textarea name="review" label="振り返り" :record="$record['review']"/>
     </div>
   </div>
-<div><button class="btn btn-info">登録</button></div>
+  <div class="text-center">
+    <button class="btn btn-info w-25">
+        更新
+    </button>
 </form>
 @endsection

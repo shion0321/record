@@ -19,6 +19,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('/record.png') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
 </head>
 <body>
     <div id="app">
@@ -50,7 +52,7 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -65,7 +67,15 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
                                 </div>
+
+                            </li> --}}
+                            <li class="nav-item m-2">
+                                <a href="{{ route('record.index') }}" class=""><i class="fas fa-list"></i> 一覧</a>
+                            </li>
+                            <li class="nav-item my-2">
+                                <a href="{{ route('record.create') }}" class=""><i class="fas fa-chart-line"></i> 新規作成</a>
                             </li>
                         @endguest
                     </ul>
