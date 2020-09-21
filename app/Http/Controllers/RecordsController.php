@@ -56,7 +56,7 @@ class RecordsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRecordPost $request)
+    public function store(Request $request)
     {
         $params = $request->all();
 
