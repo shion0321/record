@@ -6,12 +6,16 @@
         <div class="font-weight-bold">通貨ペア</div>
         <div class="form-group">
             <div class="form-check form-check-inline">
-                <input type="checkbox" name="currency_pair[]" class="form-check-input" value="ポンドドル" id="gbpusd">
-                <label for="gbpusd" class="form-check-label">ポンドドル</label>
+                <input type="checkbox" name="currency_pair[]" class="form-check-input" value="USDJPY" id="usdjpy">
+                <label for="usdjpy" class="form-check-label">USDJPY</label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="checkbox" name="currency_pair[]" class="form-check-input" value="ユーロドル" id="eurusd">
-                <label for="eurusd" class="form-check-label">ユーロドル</label>
+                <input type="checkbox" name="currency_pair[]" class="form-check-input" value="EURUSD" id="eurusd">
+                <label for="eurusd" class="form-check-label">EURUSD</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="currency_pair[]" class="form-check-input" value="GBPUSD" id="gbpusd">
+                <label for="gbpusd" class="form-check-label">GBPUSD</label>
             </div>
         </div>
         <div class="font-weight-bold">結果</div>
@@ -27,21 +31,22 @@
         </div>
         <div class="text-center">
 
-            <button class="btn btn-info">検索</button>
+            <button class="btn btn-info"><span><i class="fas fa-search"></i></span> 検索</button>
         </div>
     </form>
 </div>
 
-<div class="text-right m-3">
+{{-- <div class="text-right m-3">
     <a href="{{ route('record.create') }}" class="btn btn-info">新規作成</a>
-</div>
+</div> --}}
 
 <div>
     <table class="table">
         <th>作成日</th>
         <th>通貨ペア</th>
-        <th>トレード結果</th>
-        <th>更新日</th>
+        <th class="text-center">トレード結果</th>
+        <th class="text-center">リスク / リワード</th>
+        {{-- <th>更新日</th> --}}
         @foreach ($records as $record)
             <tr>
                 <td>
@@ -51,11 +56,21 @@
                 </td>
 
                 <td>{{ $record->currency_pair }}</td>
-                <td>
-                    {{ $record->result ?? '未トレード' }}
+                <td class="text-center">
+                    @if (!isset($record->result))
+                        {{ $record->result ?? '未トレード' }}
+                    @elseif($record->result == '損切')
+                        <div class="result-losscut">
+                            {{ $record->result }}
+                        </div>
+                    @elseif($record->result == '利確')
+                        <div class="result-win">
+                            {{ $record->result }}
+                        </div>
+                    @endif
                 </td>
-                <td>{{ $record->updated_at->format('Y年m月d日 h時i分') }}</td>
-
+                <td class="text-center">{{ $record->risk ?? '' }}：{{ $record->reward ?? '' }}</td>
+                {{-- <td>{{ $record->updated_at->format('Y年m月d日 H時i分') }}</td> --}}
             </tr>
         @endforeach
     </table>

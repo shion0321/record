@@ -3,11 +3,13 @@
 @section('content')
 
 <div class="btn-group float-right mb-3">
-    <a href="{{ route('record.edit',$record) }}" class="btn btn-info">編集</a>
+
+    <a href="{{ route('record.edit',$record) }}" class="btn btn-info"><i class="far fa-edit mr-1"></i>編集</a>
     <form action="{{ route('record.destroy',$record) }}" method="POST">
         @csrf
         @method('DELETE')
-        <input type="submit" id="" value="削除" class="btn btn-danger ml-1">
+        <button type="submit" class="btn btn-danger ml-1"><i class="far fa-trash-alt mr-1"></i>削除</button>
+        {{-- <input type="submit" id="" value="削除" class="btn btn-danger ml-1"> --}}
     </form>
 </div>
 
@@ -144,11 +146,11 @@
             </tr>
             <tr>
                 <th>エントリー時間</th>
-                <td>{{ $record->entry_time ??''  }}</td>
+                <td>{{ $record->entry_time ? $record->entry_time->format('Y年m月d日 H時i分') :''  }}</td>
             </tr>
             <tr>
                 <th>損切時間</th>
-                <td>{{ $record->loss_cut_time ??''  }}</td>
+                <td>{{ $record->loss_cut_time  ? $record->loss_cut_time->format('Y年m月d日 H時i分') :'' }}</td>
             </tr>
             <tr>
                 <th>エントリー根拠</th>
