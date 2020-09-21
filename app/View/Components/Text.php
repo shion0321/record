@@ -7,7 +7,8 @@ use Illuminate\View\Component;
 class Text extends Component
 {
     public $name;
-    public $label;
+	public $label;
+	public $record;
     /**
      * Create a new component instance.
      *
@@ -17,8 +18,11 @@ class Text extends Component
     {
         $this->name = $name;
         $this->label = $label;
-        $this->record = $record;
-
+    
+        if (isset($record)) {
+            
+            $this->record = $record[$name];
+        }
     }
 
     /**
@@ -28,8 +32,6 @@ class Text extends Component
      */
     public function render()
     {
-        $record = $this->record;
-
-        return view('components.text',compact('record'));
+        return view('components.text');
     }
 }

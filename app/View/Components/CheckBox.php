@@ -10,19 +10,34 @@ class CheckBox extends Component
     public $upName;
     public $downName;
     public $name;
+    public $record;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $label, $upName = null, $downName = null,$record = null)
+    public function __construct($name, $label,$record =null, $upName = null,$downName = null)
     {
-        $this->upName = $upName;
-        $this->downName = $downName;
+        $this->upName = '上昇トレンド';
+        $this->downName = '下降トレンド';
         $this->label = $label;
         $this->name = $name;
-        $this->record = $record;
+        
+        if (isset($record)) {
+
+            $this->record = $record[$name];
+        }
+        if (isset($upName)) {
+
+            $this->upName = $upName;
+        }
+        if (isset($downName)) {
+
+            $this->downName = $downName;
+
+        }
+
     }
 
     /**
@@ -32,7 +47,7 @@ class CheckBox extends Component
      */
     public function render()
     {
-        $record = $this->record;
-        return view('components.check-box',compact('record'));
+       
+        return view('components.check-box');
     }
 }
