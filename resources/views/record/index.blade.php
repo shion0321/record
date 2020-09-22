@@ -64,7 +64,7 @@
                             {{ $record->result }}
                         </div>
                     @elseif($record->result == '利確')
-                        <div class="result-win">
+                        <div class="">
                             {{ $record->result }}
                         </div>
                     @endif

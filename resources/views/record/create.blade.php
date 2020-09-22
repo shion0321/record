@@ -44,8 +44,9 @@
                     <x-check-box label="日足のトレンド方向" name="oneday_trend"/>
 
         
+                <x-image name='oneday_image_path' label='日足の画像' />
         
-            <div class="image_area">
+            {{-- <div class="image_area">
                 <label for="oneday_image_path" class="font-weight-bold">日足の画像</label>
                 <div class="input-group form-group">
                     <div class="custom-file">
@@ -59,7 +60,7 @@
                     画像あり
                     @endif
                 </div>
-            </div> 
+            </div>  --}}
                 {{-- <x-check-box label="日足のトレンド方向" name="oneday_trend" up-name="上昇トレンド" down-name="下降トレンド"/> --}}
                 {{-- <x-image name="oneday_image_path" label="日足の画像"/> --}}
                 

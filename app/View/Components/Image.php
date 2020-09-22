@@ -8,6 +8,7 @@ class Image extends Component
 {
     public $name;
     public $label;
+    public $record;
 
     /**
      * Create a new component instance.
@@ -18,7 +19,11 @@ class Image extends Component
     {
         $this->name = $name;
         $this->label = $label;
-        $this->record = $record;
+
+        if (isset($record)) {
+
+            $this->record = $record[$name];
+        }
     }
 
     /**
@@ -28,7 +33,6 @@ class Image extends Component
      */
     public function render()
     {
-        $record = $this->record;
-        return view('components.image',['record' => $record]);
+        return view('components.image');
     }
 }
