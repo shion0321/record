@@ -13,15 +13,15 @@
         </div>
     @endif
     
-    <form action="{{ route('record.store') }}" method="POST" enctype="multipart/form-data">
+    <form @if(isset($record)) action="{{ route('record.update',$record) }}" @else action="{{ route('record.store') }}" @endif method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="" class="font-weight-bold">通貨ペア</label>
             <select id="" class="form-control" name="currency_pair">
                 <option value="" selected @if(old('currency_pair')=='') selected  @endif>未選択</option>
-                <option value="ユーロドル" {{ old('currency_pair') =='USDJPY'? 'selected' : ''}}>USDJPY</option>
-                <option value="ユーロドル" {{ old('currency_pair') =='EURUSD'? 'selected' : ''}}>EURUSD</option>
-                <option value="ポンドドル" {{ old('currency_pair') =='GBPUSD'? 'selected' : ''}}>GBPUSD</option>
+                <option value="USDJPY" {{ old('currency_pair') =='USDJPY'? 'selected' : ''}} @if(isset($record) && $record['currency_pair'] == 'USDJPY') selected @endif>USDJPY</option>
+                <option value="EURUSD" {{ old('currency_pair') =='EURUSD'? 'selected' : ''}} @if(isset($record) && $record['currency_pair'] == 'EURUSD') selected @endif>EURUSD</option>
+                <option value="GBPUSD" {{ old('currency_pair') =='GBPUSD'? 'selected' : ''}} @if(isset($record) && $record['currency_pair'] == 'GBPUSD') selected @endif>GBPUSD</option>
             </select>
             
         </div>
@@ -32,18 +32,21 @@
                 <div id="oneday" class="">
         
         
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label class="font-weight-bold">
                     日足のトレンド方向
                 </label> 
                 <div class="inline-radio">
-                    <div><input type="radio" name="oneday_trend" value="上昇トレンド"><label>上昇トレンド</label></div>
-                    <div><input type="radio" name="oneday_trend" value="下降トレンド"><label>下降トレンド</label></div>
+                    <div><input type="radio" name="oneday_trend" value="上昇トレンド" {{ old('oneday_trend') =='上昇トレンド'? 'checked' : ''}} @if(isset($record) && $record['oneday_trend'] == '上昇トレンド') checked @endif><label>上昇トレンド</label></div>
+                    <div><input type="radio" name="oneday_trend" value="下降トレンド" {{ old('oneday_trend') =='下降トレンド'? 'checked' : ''}} @if(isset($record) && $record['oneday_trend'] == '下降トレンド') checked @endif><label>下降トレンド</label></div>
                 </div>
-            </div>
+            </div> --}}
+                    <x-check-box label="日足のトレンド方向" name="oneday_trend"/>
+
         
+                <x-image name='oneday_image_path' label='日足の画像' />
         
-            <div class="image_area">
+            {{-- <div class="image_area">
                 <label for="oneday_image_path" class="font-weight-bold">日足の画像</label>
                 <div class="input-group form-group">
                     <div class="custom-file">
@@ -53,11 +56,20 @@
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary reset">取消</button>
                     </div>
+                    @if(isset($record['oneday_image_path']))
+                    画像あり
+                    @endif
                 </div>
-            </div>
+            </div>  --}}
                 {{-- <x-check-box label="日足のトレンド方向" name="oneday_trend" up-name="上昇トレンド" down-name="下降トレンド"/> --}}
                 {{-- <x-image name="oneday_image_path" label="日足の画像"/> --}}
+                
+
                 <x-textarea name="oneday_flow" label="日足の値動きの流れ"/>
+                
+                <x-textarea name="oneday_flow" label="日足の値動きの流れ"/>
+
+                
                 <x-textarea name="oneday_entry_point" label="日足のエントリーポイント"/>
                 <x-textarea name="oneday_profit_point" label="日足の利確位置"/>
                 <x-textarea name="oneday_caution" label="日足の注意点"/>
@@ -134,19 +146,7 @@
             <input id="TAB02-04" type="radio" name="TAB02" class="tab-switch" /><label class="tab-label" for="TAB02-04">結果</label>
             <div class="tab-record-content">
                 <div id="result" class="">
-        
-                    <div class="form-group">
-                        <label class="font-weight-bold">
-                            結果
-                        </label> 
-                        <div class="inline-radio">
-                            <div><input type="radio" name="result" value="利確"><label>利確</label></div>
-                            <div><input type="radio" name="result" value="損切"><label>損切</label></div>
-                        </div>
-                    </div>
-    
-                {{-- <x-check-box name="result" label="結果" up-name="利確" down-name="損切"/> --}}
-                {{-- <x-text name="risk" label="リスク"/> --}}
+                    <x-check-box label="結果" name="result" upName='利確' downName='損切'/>
                 
                 <div class='form-group'>
                     <label for="risk" class="font-weight-bold">
@@ -163,12 +163,13 @@
                     <input type="datetime-local" name="entry_time" id="entry_time" class="form-control">
                 </div>
     
-                <div class='form-group'>
+                {{-- <div class='form-group'>
                     <label for="loss_cut_time" class="font-weight-bold">
                         損切時間
                     </label>
                     <input type="datetime-local" name="loss_cut_time" id="loss_cut_time" class="form-control">
-                </div>
+                </div> --}}
+                <x-date-time name="loss_cut_time" label="損切時間"/>
     
                 {{-- <label for="">エントリー時間</label>
                 <input type="datetime-local" name="entry_time"> --}}

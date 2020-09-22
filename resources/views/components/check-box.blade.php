@@ -1,13 +1,10 @@
-<div class="">
-    <label for="">
+
+<div class="form-group">
+    <label class="font-weight-bold">
         {{ $label }}
-    </label>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="{{ $name }}" id="" value="{{ $upName ?? '' }}" @if(isset($record) && $record == $upName) checked @endif>
-        <label class="form-check-label" for="">{{ $upName ?? '' }}</label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="{{ $name }}" id="" value="{{ $downName?? '' }}" @if(isset($record) && $record == $downName) checked @endif>
-        <label class="form-check-label" for="">{{ $downName ?? '' }}</label>
+    </label> 
+    <div class="inline-radio">
+        <div><input type="radio" name="{{ $name }}" value="{{ $upName }}" {{ $record == $upName ? 'checked' : '' }}><label>{{ $upName }}</label></div>
+        <div><input type="radio" name="{{ $name }}" value="{{ $downName }}" {{ $record == $downName ? 'checked' : '' }}><label>{{ $downName }}</label></div>
     </div>
 </div>

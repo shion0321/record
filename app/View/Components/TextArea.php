@@ -9,6 +9,7 @@ class TextArea extends Component
 {
     public $name;
     public $label;
+    public $record;
 
     /**
      * Create a new component instance.
@@ -16,10 +17,13 @@ class TextArea extends Component
      * @return void
      */
     public function __construct($name, $label, $record = null)
-    {
+    {   
         $this->name = $name;
         $this->label = $label;
-        $this->record = $record;
+        if( isset($record)){
+
+            $this->record = $record[$name];
+        }
     }
 
     /**
@@ -29,8 +33,7 @@ class TextArea extends Component
      */
     public function render()
     {
-        $record = $this->record;
-        return view('components.textarea',compact('record'));
+        return view('components.textarea');
     }
 
 

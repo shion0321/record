@@ -4,22 +4,21 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Image extends Component
+class DateTime extends Component
 {
     public $name;
     public $label;
     public $record;
-
+    
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $label,$record = null)
+    public function __construct($name,$label,$record=null)
     {
         $this->name = $name;
         $this->label = $label;
-
         if (isset($record)) {
 
             $this->record = $record[$name];
@@ -33,6 +32,6 @@ class Image extends Component
      */
     public function render()
     {
-        return view('components.image');
+        return view('components.date-time');
     }
 }
