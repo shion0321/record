@@ -31,7 +31,10 @@ class StoreRecordPost extends FormRequest
             'oneday_flow' => 'required',
             'four_hours_flow' => 'required',
             'one_hour_flow' => 'required',
-
+            'loss_amount' => 'integer',
+            'risk' => 'integer',
+            'reward' => 'integer',
+            'result_pips' => 'integer',
         ];
     }
 
@@ -45,6 +48,10 @@ class StoreRecordPost extends FormRequest
             'oneday_flow.required'  => '日足の値動きの流れを入力してください。',
             'four_hours_flow.required'  => '4時間足の値動きの流れを入力してください。',
             'one_hour_flow.required'  => '1時間足の値動きの流れを入力してください。',
+            'loss_amount.integer'  => '損失額は数値で入力してください。',
+            'risk.integer'  => 'リスクは数値で入力してください。',
+            'reward.integer'  => 'リワードは数値で入力してください。',
+            'result_pips.integer'  => '獲得PIPSは数値で入力してください。',
         ];
     }
 }

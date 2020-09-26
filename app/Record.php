@@ -69,6 +69,8 @@ class Record extends Model
         'entry_basis',
         'risk',
         'reward',
+        'loss_amount',
+        'loss_amount_reason',
     ];
 
     protected $dates = [
