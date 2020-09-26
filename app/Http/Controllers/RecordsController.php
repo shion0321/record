@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Storage;
 
 class RecordsController extends Controller
 {
+
+    public $_codes = [];
+
+    public function __construct()
+    {
+        $this->_get_codes();
+    }
+
     public function search(Request $request)
     {
         $params = $request->all();
@@ -46,8 +54,8 @@ class RecordsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('record.create');
+    {     
+        return view('record.create')->with('codes',$this->_codes);
     }
 
     /**
@@ -62,30 +70,7 @@ class RecordsController extends Controller
 
         $record = new Record();
         $record->fill($params);
-        if (isset($params['oneday_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['oneday_image_path']);
-        }
-
-        if (isset($params['four_hours_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['four_hours_image_path']);
-        }
-
-        if (isset($params['one_hour_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['one_hour_image_path']);
-        }
-
-        if (isset($params['entry_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['entry_image_path']);
-        }
-
-        if (isset($params['finish_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['finish_image_path']);
-        }
+        $this->_set_image($record,$params);
 
         $record->user_id = Auth::id();
         $record->save();
@@ -144,29 +129,8 @@ class RecordsController extends Controller
 
         $record = Record::findOrFail($id);
         $record->fill($params);
-        if (isset($params['oneday_image_path'])) {
-            $record->oneday_image_path = $this->_set_image_path($params['oneday_image_path']);
-        }
+        $this->_set_image($record, $params);
 
-        if (isset($params['four_hours_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['four_hours_image_path']);
-        }
-
-        if (isset($params['one_hour_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['one_hour_image_path']);
-        }
-
-        if (isset($params['entry_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['entry_image_path']);
-        }
-
-        if (isset($params['finish_image_path'])) {
-
-            $record->oneday_image_path = $this->_set_image_path($params['finish_image_path']);
-        }
         $record->save();
 
         return redirect()->route('record.index');
@@ -229,4 +193,42 @@ class RecordsController extends Controller
 
         return true;
     }
+
+    private function _set_image($record,$params)
+    {
+        if (isset($params['oneday_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['oneday_image_path']);
+        }
+
+        if (isset($params['four_hours_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['four_hours_image_path']);
+        }
+
+        if (isset($params['one_hour_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['one_hour_image_path']);
+        }
+
+        if (isset($params['entry_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['entry_image_path']);
+        }
+
+        if (isset($params['finish_image_path'])) {
+
+            $record->oneday_image_path = $this->_set_image_path($params['finish_image_path']);
+        }
+    }
+
+    protected function _get_codes()
+    {
+        $this->_codes['currency_pair'] = Record::get_currency_pair_codes(true);
+        $this->_codes['reward'] = Record::get_reward_codes(true);
+
+        return $this->_codes;
+    }
+
+    
 }
