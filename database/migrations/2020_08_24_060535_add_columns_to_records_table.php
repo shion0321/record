@@ -30,7 +30,11 @@ class AddColumnsToRecordsTable extends Migration
     public function down()
     {
         Schema::table('records', function (Blueprint $table) {
-            //
+            $table->dropColumn('entry_time');
+            $table->dropColumn('loss_cut_time');
+            $table->dropColumn('entry_basis');
+            $table->dropColumn('risk');
+            $table->dropColumn('reward');
         });
     }
 }
