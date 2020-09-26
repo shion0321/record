@@ -64,7 +64,7 @@ class RecordsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRecordPost $request)
     {
         $params = $request->all();
 
@@ -123,7 +123,7 @@ class RecordsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRecordPost $request, $id)
     {
         $params = $request->all();
 
@@ -226,6 +226,8 @@ class RecordsController extends Controller
     {
         $this->_codes['currency_pair'] = Record::get_currency_pair_codes(true);
         $this->_codes['reward'] = Record::get_reward_codes(true);
+        $this->_codes['trend'] = Record::get_trend_codes();
+        $this->_codes['result'] = Record::get_result_codes();
 
         return $this->_codes;
     }
