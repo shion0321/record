@@ -16,16 +16,8 @@
     
     <form action="{{ route('record.store') }}"  method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="form-group">
-            <label for="" class="font-weight-bold">通貨ペア</label>
-            <select id="" class="form-control" name="currency_pair">
-                <option value="" >未選択</option>
-                <option value="USDJPY" >USDJPY</option>
-                <option value="EURUSD" >EURUSD</option>
-                <option value="GBPUSD" >GBPUSD</option>
-            </select>
-        </div>
-        
+        <x-select name='currency_pair' label='通貨ペア' :record="$codes"/>
+                
         <div class="tab-wrap">
             <input id="TAB02-01" type="radio" name="TAB02" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB02-01">日足</label>
             <div class="tab-record-content">
@@ -63,19 +55,9 @@
                         </label>
                         <input type="text" name="risk" id="risk" class="form-control" value="1" readonly>
                     </div>
-                    <!-- TODO：これはコントローラーでやるべき -->
-                    <div class="form-group">
-                        <label for="" class="font-weight-bold">リワード</label>
-                        <select id="" class="form-control" name="reward">
-                            <option value="">未選択</option>
-                            @for ($i = 1; $i < 11; $i++)
-                                @if($i == 1)
-                                @continue
-                                @endif
-                                <option value="{{ $i }}" >{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
+
+                    <x-select name='reward' label='リワード' :record="$codes"/>
+
                     <x-date-time name="entry_time" label="エントリー時間" />
                     <x-date-time name="loss_cut_time" label="損切時間" />
                     <x-textarea name="entry_basis" label="エントリー根拠" />

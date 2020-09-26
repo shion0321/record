@@ -99,7 +99,36 @@ class Record extends Model
         return $record;
     }
 
-    public function getCurrencyPairNameAttribute()
+    public static function get_currency_pair_codes($_form = false)
     {
+        $codes = [];
+
+        if ($_form == true) {
+            $codes[''] = '未選択';
+        }
+        $codes['USDJPY'] = 'USDJPY';
+        $codes['EURUSD'] = 'EURUSD';
+        $codes['GBPUSD'] = 'GBPUSD';
+
+        return $codes;
+    }
+
+    public static function get_reward_codes($_form = false)
+    {
+        $codes = [];
+
+        if ($_form == true) {
+            $codes[''] = '未選択';
+        }        
+
+        for ($i=1; $i < 11; $i++) { 
+            
+            if ($i == 1) {
+                continue;
+            }
+            $codes[$i] = $i;
+        }
+
+        return $codes;
     }
 }
