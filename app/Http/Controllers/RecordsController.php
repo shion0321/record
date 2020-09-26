@@ -64,7 +64,7 @@ class RecordsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRecordPost $request)
     {
         $params = $request->all();
 
@@ -75,6 +75,7 @@ class RecordsController extends Controller
         $record->user_id = Auth::id();
         $record->save();
 
+        session()->flash('flash_message', '登録完了');
         return redirect()->route('record.index');
     }
 
@@ -123,7 +124,7 @@ class RecordsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRecordPost $request, $id)
     {
         $params = $request->all();
 
@@ -133,6 +134,7 @@ class RecordsController extends Controller
 
         $record->save();
 
+        session()->flash('flash_message', '更新完了');
         return redirect()->route('record.index');
     }
 
@@ -148,6 +150,8 @@ class RecordsController extends Controller
         $this->_delete_image($record);
         $record->delete();
 
+        session()->flash('flash_message', '削除完了');
+
         return redirect()->route('record.index');
     }
 
@@ -157,6 +161,24 @@ class RecordsController extends Controller
         $path = Storage::disk('s3')->putFile('test', $image, 'public');
         # アップロードした画像のフルパスを返す
         return Storage::disk('s3')->url($path);
+    }
+
+    private function _calculate_win_rate()
+    {
+        $rate = [];
+
+        $rata['year_win_rate'] = '';
+        $rata['month_win_rate'] = '';
+        $rata['week_win_rate'] = '';
+    }
+
+    private function _calculate_earn_money()
+    {
+
+    }
+
+    private function _calculate_get_pips()
+    {
     }
 
     # モデルを引数に入れる
@@ -226,6 +248,8 @@ class RecordsController extends Controller
     {
         $this->_codes['currency_pair'] = Record::get_currency_pair_codes(true);
         $this->_codes['reward'] = Record::get_reward_codes(true);
+        $this->_codes['trend'] = Record::get_trend_codes();
+        $this->_codes['result'] = Record::get_result_codes();
 
         return $this->_codes;
     }

@@ -8,7 +8,7 @@
         <div class="alert alert-danger">
             <ul class="list-unstyled">
                 @foreach ($errors->all() as $error)
-                    <li class="">{{ $error }}</li>
+                    <li class="align-middle">{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
@@ -65,7 +65,9 @@
                     <x-image name='finish_image_path' label='決済時画像' />
                     <x-text name="result_pips" label="獲得PIPS" />
                     <x-text name="result_profit" label="獲得金額" />
+                    <x-text name="loss_amount" label="損失額" />
                     <x-textarea name="review" label="振り返り" />
+                    <x-textarea name="loss_amount_reason" label="損失理由の考察" />
                 </div>
             </div>
         <div class="text-center">

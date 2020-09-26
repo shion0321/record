@@ -69,6 +69,8 @@ class Record extends Model
         'entry_basis',
         'risk',
         'reward',
+        'loss_amount',
+        'loss_amount_reason',
     ];
 
     protected $dates = [
@@ -128,6 +130,32 @@ class Record extends Model
             }
             $codes[$i] = $i;
         }
+
+        return $codes;
+    }
+
+    public static function get_trend_codes($_form = false)
+    {
+        $codes = [];
+
+        if ($_form == true) {
+            $codes[''] = '未選択';
+        }
+        $codes['上昇トレンド'] = '上昇トレンド';
+        $codes['下降トレンド'] = '下降トレンド';
+
+        return $codes;
+    }
+
+    public static function get_result_codes($_form = false)
+    {
+        $codes = [];
+
+        if ($_form == true) {
+            $codes[''] = '未選択';
+        }
+        $codes['利確'] = '利確';
+        $codes['損切'] = '損切';
 
         return $codes;
     }

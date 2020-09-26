@@ -2,5 +2,5 @@
     <label for="{{ $name }}" class="font-weight-bold">
         {{ $label }}
     </label>
-    <input type="text" name="{{ $name }}" id="{{ $name }}" class="form-control" value="{{ $record ?? '' }}">
+    <input type="text" name="{{ $name }}" id="{{ $name }}" class="form-control" value="{{ $record ?? '' }}{{ old($name) }}">
 </div>

@@ -84,7 +84,9 @@
                     <x-image name='finish_image_path' label='決済時画像' :record="$record"/>
                     <x-text name="result_pips" label="獲得PIPS" :record="$record"/>
                     <x-text name="result_profit" label="獲得金額" :record="$record"/>
+                    <x-text name="loss_amount" label="損失金額" :record="$record"/>
                     <x-textarea name="review" label="振り返り" :record="$record"/>
+                    <x-textarea name="loss_amount_reason" label="損失理由の考察" :record="$record"/>
                 </div>
             </div>
         <div class="text-center">
