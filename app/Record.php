@@ -159,4 +159,49 @@ class Record extends Model
 
         return $codes;
     }
+
+    public static function _calculate_win_rate($user_id)
+    {
+        $rate = [];
+
+        $rata['year_win_rate'] = '';
+        $rata['month_win_rate'] = '';
+        $rata['week_win_rate'] = '';
+    }
+
+    public static function _calculate_earn_money($user_id)
+    {
+        $money = [];
+
+        $money['year_earn_money'] = '';
+        $money['month_earn_money'] = '';
+        $money['week_earn_money'] = '';
+
+        $query = self::query();
+        $query->where('user_id',$user_id);
+        $query->where('result', '利確')
+        ->orWhere('result','損切');
+
+        # エントリー時間が今年のモデルを取得
+        # エントリー時間が今月のモデルを取得
+        # エントリー時間が今週のモデルを取得
+
+        return $money;
+    }
+
+    public static function _calculate_get_pips($user_id)
+    {
+        $pips = [];
+
+        $pips['year_get_pips'] = '';
+        $pips['month_get_pips'] = '';
+        $pips['week_get_pips'] = '';
+
+
+        $query = self::query();
+        $query->where('user_id', $user_id);
+        $query->where('result', '利確');
+
+        return $pips;
+    }
 }
