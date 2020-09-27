@@ -163,23 +163,7 @@ class RecordsController extends Controller
         return Storage::disk('s3')->url($path);
     }
 
-    private function _calculate_win_rate()
-    {
-        $rate = [];
-
-        $rata['year_win_rate'] = '';
-        $rata['month_win_rate'] = '';
-        $rata['week_win_rate'] = '';
-    }
-
-    private function _calculate_earn_money()
-    {
-
-    }
-
-    private function _calculate_get_pips()
-    {
-    }
+    
 
     # モデルを引数に入れる
     private function _delete_image($model)
