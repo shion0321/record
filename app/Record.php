@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -192,15 +193,20 @@ class Record extends Model
     public static function _calculate_get_pips($user_id)
     {
         $pips = [];
-
-        $pips['year_get_pips'] = '';
+        $month_pips_count = null;
         $pips['month_get_pips'] = '';
-        $pips['week_get_pips'] = '';
-
 
         $query = self::query();
         $query->where('user_id', $user_id);
         $query->where('result', '利確');
+        $query->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()]);
+        $models = $query->getModels();
+
+        foreach ($models as $model) {
+            $month_pips_count += intval($model->result_pips);
+        }
+        $pips['month_get_pips'] = $month_pips_count;
+
 
         return $pips;
     }

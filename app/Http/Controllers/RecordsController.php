@@ -43,9 +43,10 @@ class RecordsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $this->_codes['pips'] = Record::_calculate_get_pips(Auth::id());
         $records = Record::OwnRecords();
-        return view('record.index', compact('records'));
+        return view('record.index', compact('records'))->with('codes',$this->_codes);
     }
 
     /**
@@ -64,7 +65,7 @@ class RecordsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRecordPost $request)
+    public function store(Request $request)
     {
         $params = $request->all();
 
@@ -124,7 +125,7 @@ class RecordsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreRecordPost $request, $id)
+    public function update(Request $request, $id)
     {
         $params = $request->all();
 
