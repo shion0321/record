@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -169,38 +170,64 @@ class Record extends Model
         $rata['week_win_rate'] = '';
     }
 
-    public static function _calculate_earn_money($user_id)
+    public static function _calculate_result_profit($user_id)
     {
-        $money = [];
-
-        $money['year_earn_money'] = '';
-        $money['month_earn_money'] = '';
-        $money['week_earn_money'] = '';
+        $result_profit = [];
+        $month_profit = null;
+        $month_loss = null;
+        $month_models = null;
+        // $money['year_earn_money'] = '';
+        // $result_profit['month_result_profit'] = null;
+        // $money['week_earn_money'] = '';
 
         $query = self::query();
         $query->where('user_id',$user_id);
-        $query->where('result', '利確')
-        ->orWhere('result','損切');
+        $query->whereNotNull('result_profit');
+        $base_query = $query;
+
+        // 今年のモデル
+        // $year_query = $base_query->whereBetween('entry_time', [Carbon::now()->firstOfYear()->toDateString(), Carbon::now()->endOfYear()->toDateString()])->getModels();
+        # 今月のモデル
+        $month_models = $base_query->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()])->getModels();
+
+
+        foreach ($month_models as $model) {
+
+            $month_profit += (int)$model->result_profit;
+            $month_loss += (int)$model->loss_amount;
+        }
+
+
+
+        $result_profit['month_earn_money'] = $month_profit;
+        $result_profit['month_loss'] = $month_loss;
+        $result_profit['month_profit'] = $month_profit - $month_loss;
 
         # エントリー時間が今年のモデルを取得
         # エントリー時間が今月のモデルを取得
         # エントリー時間が今週のモデルを取得
 
-        return $money;
+        return $result_profit;
     }
 
     public static function _calculate_get_pips($user_id)
     {
         $pips = [];
-
-        $pips['year_get_pips'] = '';
+        $month_pips_count = null;
         $pips['month_get_pips'] = '';
-        $pips['week_get_pips'] = '';
-
 
         $query = self::query();
         $query->where('user_id', $user_id);
         $query->where('result', '利確');
+        $query->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()]);
+
+        $models = $query->getModels();
+
+        foreach ($models as $model) {
+            $month_pips_count += intval($model->result_pips);
+        }
+
+        $pips['month_get_pips'] = $month_pips_count;
 
         return $pips;
     }
