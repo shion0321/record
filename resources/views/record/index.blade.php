@@ -1,6 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
+<div>
+    <div>
+        <p>成績</p>
+    </div>
+    <div>
+        <div>
+            勝率
+        </div>
+        <div class="d-flex">
+            <div class="mr-2">今月の勝率</div>
+            <div>
+                @if (isset($codes['rate']['month_win_rate']))
+                    {{ $codes['rate']['month_win_rate'] }}%
+                @else
+                    未トレード
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="border rounded p-3">
     <form method="GET" action="{{ route('record.search') }}">
         <div class="font-weight-bold">通貨ペア</div>
