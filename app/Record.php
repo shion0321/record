@@ -122,10 +122,10 @@ class Record extends Model
 
         if ($_form == true) {
             $codes[''] = '未選択';
-        }        
+        }
 
-        for ($i=1; $i < 11; $i++) { 
-            
+        for ($i=1; $i < 11; $i++) {
+
             if ($i == 1) {
                 continue;
             }
@@ -164,10 +164,40 @@ class Record extends Model
     public static function _calculate_win_rate($user_id)
     {
         $rate = [];
+		$rate['month_win_rate'] = '';
 
-        $rata['year_win_rate'] = '';
-        $rata['month_win_rate'] = '';
-        $rata['week_win_rate'] = '';
+        # 今月の利確数(TODO:scope)
+        $month_win_query = self::query();
+        $month_win_query
+        ->where('user_id', $user_id)
+        ->where('result', '利確')
+        ->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()]);
+
+        # 今月の損切数(TODO:scope)
+        $month_fail_query = self::query();
+        $month_fail_query
+        ->where('result', '損切')
+        ->where('user_id', $user_id)
+        ->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()]);
+
+        # 利確数
+        $month_win_count = count($month_win_query->getModels());
+        # 損切数
+        $month_fail_count = count($month_fail_query->getModels());
+        # 結果の総数（今月）
+        $month_all_count = $month_win_count + $month_fail_count;
+
+        # 未トレード
+        if ($month_all_count == 0) {
+
+            $rate['month_win_rate'] = null;
+
+        } else {
+            $rate['month_win_rate'] = $month_win_count / $month_all_count * 100;
+        }
+
+
+        return $rate;
     }
 
     public static function _calculate_result_profit($user_id)

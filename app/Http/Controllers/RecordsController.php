@@ -24,7 +24,7 @@ class RecordsController extends Controller
 
         $records = Record::query();
         $records->where('user_id',Auth::id());
-        
+
         if ( isset($params['currency_pair'])) {
             $records->whereIn('currency_pair',$params['currency_pair']);
         }
@@ -33,7 +33,7 @@ class RecordsController extends Controller
             $records->whereIn('result', $params['result']);
         }
 
-        $records = $records->getModels();
+        $records = $records->latest()->getModels();
 
         return view('record.index', compact('records'));
     }
@@ -43,9 +43,10 @@ class RecordsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $this->_codes['pips'] = Record::_calculate_get_pips(Auth::id());
         $this->_codes['result_profit'] = Record::_calculate_result_profit(Auth::id());
+        $this->_codes['rate'] = Record::_calculate_win_rate(Auth::id());
         $records = Record::OwnRecords();
         return view('record.index', compact('records'))->with('codes',$this->_codes);
     }
@@ -56,7 +57,7 @@ class RecordsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {     
+    {
         return view('record.create')->with('codes',$this->_codes);
     }
 
@@ -165,7 +166,7 @@ class RecordsController extends Controller
         return Storage::disk('s3')->url($path);
     }
 
-    
+
 
     # モデルを引数に入れる
     private function _delete_image($model)
@@ -240,5 +241,5 @@ class RecordsController extends Controller
         return $this->_codes;
     }
 
-    
+
 }
