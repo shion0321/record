@@ -3,9 +3,6 @@
 @section('content')
 <div>
     <div>
-        <p>成績</p>
-    </div>
-    <div>
         <div>
             勝率
         </div>
@@ -16,6 +13,26 @@
                     {{ $codes['rate']['month_win_rate'] }}%
                 @else
                     未トレード
+                @endif
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="mr-2">今月の利益</div>
+            <div>
+                @if (isset($codes['result_profit']['month_profit']))
+                    {{ $codes['result_profit']['month_profit'] }}円
+                @else
+                    0円
+                @endif
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="mr-2">今月の獲得PIPS</div>
+            <div>
+                @if (isset($codes['pips']['month_get_pips']))
+                    {{ $codes['pips']['month_get_pips'] }}PIPS
+                @else
+                    0円
                 @endif
             </div>
         </div>
