@@ -207,9 +207,10 @@ class Record extends Model
         $month_models = null;
 
         $month_profit_query = self::query();
+        $month_profit_query->where('result', '利確')
+        ->orWhere('result', '損切');
         $month_profit_query->where('user_id',$user_id);
-        $month_profit_query->whereNotNull('result_profit')
-        ->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()]);
+        $month_profit_query->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()]);
 
         # 今月のモデル
         $month_models = $month_profit_query->getModels();
@@ -219,7 +220,6 @@ class Record extends Model
             $month_profit += (int)$model->result_profit;
             $month_loss += (int)$model->loss_amount;
         }
-
         $result_profit['month_earn_money'] = $month_profit;
         $result_profit['month_loss'] = $month_loss;
         $result_profit['month_profit'] = $month_profit - $month_loss;
