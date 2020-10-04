@@ -196,7 +196,6 @@ class Record extends Model
             $rate['month_win_rate'] = $month_win_count / $month_all_count * 100;
         }
 
-
         return $rate;
     }
 
@@ -206,20 +205,14 @@ class Record extends Model
         $month_profit = null;
         $month_loss = null;
         $month_models = null;
-        // $money['year_earn_money'] = '';
-        // $result_profit['month_result_profit'] = null;
-        // $money['week_earn_money'] = '';
 
-        $query = self::query();
-        $query->where('user_id',$user_id);
-        $query->whereNotNull('result_profit');
-        $base_query = $query;
+        $month_profit_query = self::query();
+        $month_profit_query->where('user_id',$user_id);
+        $month_profit_query->whereNotNull('result_profit')
+        ->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()]);
 
-        // 今年のモデル
-        // $year_query = $base_query->whereBetween('entry_time', [Carbon::now()->firstOfYear()->toDateString(), Carbon::now()->endOfYear()->toDateString()])->getModels();
         # 今月のモデル
-        $month_models = $base_query->whereBetween('entry_time', [Carbon::now()->firstOfMonth()->toDateString(), Carbon::now()->endOfMonth()->toDateString()])->getModels();
-
+        $month_models = $month_profit_query->getModels();
 
         foreach ($month_models as $model) {
 
@@ -227,15 +220,9 @@ class Record extends Model
             $month_loss += (int)$model->loss_amount;
         }
 
-
-
         $result_profit['month_earn_money'] = $month_profit;
         $result_profit['month_loss'] = $month_loss;
         $result_profit['month_profit'] = $month_profit - $month_loss;
-
-        # エントリー時間が今年のモデルを取得
-        # エントリー時間が今月のモデルを取得
-        # エントリー時間が今週のモデルを取得
 
         return $result_profit;
     }
