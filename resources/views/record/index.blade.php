@@ -3,11 +3,8 @@
 @section('content')
 <div>
     <div>
-        <div>
-            勝率
-        </div>
         <div class="d-flex">
-            <div class="mr-2">今月の勝率</div>
+            <div class="mr-2"><i class="fas fa-poll"></i>今月の勝率</div>
             <div>
                 @if (isset($codes['rate']['month_win_rate']))
                     {{ $codes['rate']['month_win_rate'] }}%
@@ -17,20 +14,10 @@
             </div>
         </div>
         <div class="d-flex">
-            <div class="mr-2">今月の利益</div>
+            <div class="mr-2"><i class="fas fa-dollar-sign"></i>今月の利益</div>
             <div>
                 @if (isset($codes['result_profit']['month_profit']))
                     {{ $codes['result_profit']['month_profit'] }}円
-                @else
-                    0円
-                @endif
-            </div>
-        </div>
-        <div class="d-flex">
-            <div class="mr-2">今月の獲得PIPS</div>
-            <div>
-                @if (isset($codes['pips']['month_get_pips']))
-                    {{ $codes['pips']['month_get_pips'] }}PIPS
                 @else
                     0円
                 @endif
@@ -80,10 +67,10 @@
 
 <div>
     <table class="table">
-        <th>作成日</th>
-        <th>通貨ペア</th>
-        <th class="text-center">トレード結果</th>
-        <th class="text-center">リスク / リワード</th>
+        <th><i class="fas fa-calendar-week"></i>作成日</th>
+        <th><i class="fas fa-yen-sign"></i>通貨ペア</th>
+        <th class="text-center"><i class="fas fa-poll-h"></i>トレード結果</th>
+        <th class="text-center"><i class="fas fa-exclamation-triangle"></i>リスク / <i class="fas fa-gift"></i>リワード</th>
         {{-- <th>更新日</th> --}}
         @foreach ($records as $record)
             <tr>
